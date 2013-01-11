@@ -5,7 +5,6 @@ import java.io.*;
 public class Main {
 	public static int insert(String message, String inputFile, String outputFile) {
 		FileInputStream in = null;
-		FileOutputStream out = null;
 		FileOutputStream outjpg = null;
 		int count = 0;
 		int[] bytes;
@@ -15,7 +14,6 @@ public class Main {
 		try {
 			in = new FileInputStream(inputFile); //open the input file
 			outjpg = new FileOutputStream(outputFile); //open the output file
-//			out = new FileOutputStream("/Users/Geoff/Desktop/outagain.txt");
 
 			while ((c = in.read()) != -1) { //determine the length of the file in bytes
 				count++;
@@ -29,13 +27,13 @@ public class Main {
 				bytes[i] = in.read();
 			}
 			for(int i = 2000; i < 2000 + message.length(); i++) { //place message into image
-				if(message.charAt(i-2000) == '1') { //avoid null pointer exceptions
+				if(message.charAt(i-2000) == '1') { 
 					if(bytes[i] % 2 == 0) { //an even value means a 1, odd a 0.
 						bytes[i] = bytes[i];
 					}else {
 						bytes[i] += 1;
 					}
-				}else if((message.charAt(i-2000) == '0')) {
+				}else if(message.charAt(i-2000) == '0') {
 					if(bytes[i] % 2 != 0) {
 						bytes[i] = bytes[i];
 					}else {
@@ -63,14 +61,6 @@ public class Main {
 					outjpg.close(); //close the jpeg output stream
 				} catch (IOException e) {
 					System.out.println("Failed to close input stream!");
-					e.printStackTrace();
-				}
-			}
-			if (out != null) {
-				try {
-					out.close(); //close the output stream
-				} catch (IOException e) {
-					System.out.println("Failed to close output stream!");
 					e.printStackTrace();
 				}
 			}
